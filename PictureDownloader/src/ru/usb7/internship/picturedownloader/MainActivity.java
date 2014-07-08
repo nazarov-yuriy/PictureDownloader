@@ -3,9 +3,12 @@ package ru.usb7.internship.picturedownloader;
 import java.io.File;
 
 import ru.usb7.internship.picturedownloader.PicrureLoaderResult.LoaderResult;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +38,15 @@ public class MainActivity extends FragmentActivity implements LoaderManager.Load
 		};
 		openClickListener = new View.OnClickListener() {
 			public void onClick(View v) {
+				Uri contentUri = FileProvider.getUriForFile(getApplicationContext(),
+						"ru.usb7.internship.picturedownloader.fileprovider", // formatting
+						new File(getApplicationContext().getCacheDir(), pictureName));
+
+				Intent intent = new Intent();
+				intent.setAction(Intent.ACTION_VIEW);
+				intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+				intent.setDataAndType(contentUri, "image/png");
+				startActivity(intent);
 			}
 		};
 		setBtnDownload();
@@ -77,7 +89,7 @@ public class MainActivity extends FragmentActivity implements LoaderManager.Load
 	public Loader<PicrureLoaderResult> onCreateLoader(int arg0, Bundle arg1) {
 		File dir = new File(getCacheDir().getAbsolutePath());
 		dir.mkdirs();
-		File file = new File(dir, "picture.png");
+		File file = new File(dir, pictureName);
 		PictureLoader loader = new PictureLoader(this, getResources().getString(R.string.picture_url), file);
 		return loader;
 	}
