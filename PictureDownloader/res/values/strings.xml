@@ -3,5 +3,16 @@
 
     <string name="app_name">PictureDownloader</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_main_activity">Picture downloader</string>
+
+    <string name="status_label">Status:</string>
+    <string name="status_idle">idle</string>
+    <string name="status_loading">loading</string>
+    <string name="status_loaded">loaded</string>
+
+    <string name="button_download_title">download</string>
+    <string name="button_open_title">open</string>
+
+    <string name="picture_url">http://nazarov-yuriy.github.io/PictureDownloader/img/logo.png</string>
 
 </resources>
