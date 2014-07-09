@@ -37,6 +37,8 @@ public class MainActivity extends FragmentActivity implements LoaderManager.Load
 				Log.d(TAG, "onClick downloadClickListener");
 				getSupportLoaderManager().initLoader(LOADER_ID, null, activity).forceLoad();
 				v.setEnabled(false);
+				ProgressBar pb = (ProgressBar) findViewById(R.id.progressBarDownloading);
+				pb.setVisibility(View.VISIBLE);
 			}
 		};
 		openClickListener = new View.OnClickListener() {
@@ -87,25 +89,25 @@ public class MainActivity extends FragmentActivity implements LoaderManager.Load
 			public void run() {
 
 				Log.d(TAG, "onLoadFinished");
-				View v = findViewById(R.id.textViewStatusValue);
 				TextView tv = (TextView) findViewById(R.id.textViewStatusValue);
 				ProgressBar pb = (ProgressBar) findViewById(R.id.progressBarDownloading);
 
-				pb.setProgress(fdata.loaderProgress);
-
 				if (fdata.loaderResult == LoaderResult.LOADED) {
 					tv.setText(getResources().getString(R.string.status_loaded));
-					Toast.makeText(getApplicationContext(), "loaded", Toast.LENGTH_SHORT).show();
 					setBtnOpen();
+					pb.setVisibility(View.INVISIBLE);
 					Log.d(TAG, "tv1 " + tv + " th " + android.os.Process.myTid());
 				} else if (fdata.loaderResult == LoaderResult.FAILED) {
 					tv.setText(getResources().getString(R.string.status_idle));
-					Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
-					setBtnOpen();
+					Toast.makeText(getApplicationContext(),
+							getResources().getString(R.string.downloading_failed_toast), Toast.LENGTH_SHORT).show();
+					setBtnDownload();
+					pb.setVisibility(View.INVISIBLE);
 					Log.d(TAG, "tv2 " + tv + " th " + android.os.Process.myTid());
 				} else {
 					Log.d(TAG, "tv31 " + tv + " th " + android.os.Process.myTid());
 					tv.setText(getResources().getString(R.string.status_loading));
+					pb.setProgress(fdata.loaderProgress);
 					Log.d(TAG, "tv32 " + tv + " th " + android.os.Process.myTid());
 				}
 			}

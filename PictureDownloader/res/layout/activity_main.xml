@@ -32,6 +32,8 @@
         android:layout_alignBaseline="@+id/textViewStatusLable"
         android:layout_alignBottom="@+id/textViewStatusLable"
         android:layout_toRightOf="@+id/textViewStatusLable"
+        android:layout_marginLeft="5dp"
+        android:text="@string/status_idle"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ProgressBar
@@ -42,7 +44,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textViewStatusLable"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40dp"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/buttonDownloadOpen"

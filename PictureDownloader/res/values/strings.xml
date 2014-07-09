@@ -6,12 +6,14 @@
     <string name="title_main_activity">Picture downloader</string>
 
     <string name="status_label">Status:</string>
-    <string name="status_idle">idle</string>
-    <string name="status_loading">loading</string>
-    <string name="status_loaded">loaded</string>
+    <string name="status_idle">Idle</string>
+    <string name="status_loading">Downloading</string>
+    <string name="status_loaded">Downloaded</string>
 
-    <string name="button_download_title">download</string>
-    <string name="button_open_title">open</string>
+    <string name="button_download_title">Download</string>
+    <string name="button_open_title">Open</string>
+    
+    <string name="downloading_failed_toast">Downloading failed. Try again.</string>
 
     <string name="picture_url">http://nazarov-yuriy.github.io/PictureDownloader/img/logo.png</string>
 
