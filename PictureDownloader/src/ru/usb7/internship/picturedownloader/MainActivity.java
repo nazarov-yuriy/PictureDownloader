@@ -82,24 +82,34 @@ public class MainActivity extends FragmentActivity implements LoaderManager.Load
 
 	@Override
 	public void onLoadFinished(Loader<PicrureLoaderResult> loader, PicrureLoaderResult data) {
-		Log.d(TAG, "onLoadFinished");
-		View v = findViewById(R.id.textViewStatusValue);
-		TextView tv = (TextView) findViewById(R.id.textViewStatusValue);
-		ProgressBar pb = (ProgressBar) findViewById(R.id.progressBarDownloading);
+		final PicrureLoaderResult fdata = data;
+		runOnUiThread(new Runnable() {
+			public void run() {
 
-		pb.setProgress(data.loaderProgress);
+				Log.d(TAG, "onLoadFinished");
+				View v = findViewById(R.id.textViewStatusValue);
+				TextView tv = (TextView) findViewById(R.id.textViewStatusValue);
+				ProgressBar pb = (ProgressBar) findViewById(R.id.progressBarDownloading);
 
-		if (data.loaderResult == LoaderResult.LOADED) {
-			tv.setText(getResources().getString(R.string.status_loaded));
-			Toast.makeText(getApplicationContext(), "loaded", Toast.LENGTH_SHORT).show();
-			setBtnOpen();
-		} else if (data.loaderResult == LoaderResult.FAILED) {
-			tv.setText(getResources().getString(R.string.status_idle));
-			Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
-			setBtnOpen();
-		} else {
-			//tv.setText(getResources().getString(R.string.status_loading));
-		}
+				pb.setProgress(fdata.loaderProgress);
+
+				if (fdata.loaderResult == LoaderResult.LOADED) {
+					tv.setText(getResources().getString(R.string.status_loaded));
+					Toast.makeText(getApplicationContext(), "loaded", Toast.LENGTH_SHORT).show();
+					setBtnOpen();
+					Log.d(TAG, "tv1 " + tv + " th " + android.os.Process.myTid());
+				} else if (fdata.loaderResult == LoaderResult.FAILED) {
+					tv.setText(getResources().getString(R.string.status_idle));
+					Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+					setBtnOpen();
+					Log.d(TAG, "tv2 " + tv + " th " + android.os.Process.myTid());
+				} else {
+					Log.d(TAG, "tv31 " + tv + " th " + android.os.Process.myTid());
+					tv.setText(getResources().getString(R.string.status_loading));
+					Log.d(TAG, "tv32 " + tv + " th " + android.os.Process.myTid());
+				}
+			}
+		});
 	}
 
 	@Override
